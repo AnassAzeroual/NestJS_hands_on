@@ -18,7 +18,7 @@ export class CoffeeService {
     }
 
     findOne(id: string) {
-        return this.coffeeData.filter(c => c.id == Number(id))
+        return this.coffeeData.find(c => c.id == Number(id))
     }
 
     create(createCoffee: Coffee) {
