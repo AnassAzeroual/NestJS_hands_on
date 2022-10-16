@@ -1,10 +1,11 @@
+import { CreateCoffeeDto } from './../dto/create-coffee.dto';
 import { Coffee } from './../../entities/coffee.entitie';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class CoffeeService {
-    private coffeeData: Coffee[] = [
+    private coffeeData: CreateCoffeeDto[] = [
         {
             id: 1,
             name: "Shipwreck Roast",
@@ -21,7 +22,7 @@ export class CoffeeService {
         return this.coffeeData.find(c => c.id == Number(id))
     }
 
-    create(createCoffee: Coffee) {
+    create(createCoffee: CreateCoffeeDto) {
         this.coffeeData.push(createCoffee);
         return this.coffeeData
     }
