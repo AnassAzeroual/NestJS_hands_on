@@ -1,3 +1,5 @@
+![image info](https://sethphat.com/wp-content/uploads/2020/04/063437b9ea.jpg)
+
 # Install
 ## Node.js or NVM
 link Node.js : https://nodejs.org/en/
