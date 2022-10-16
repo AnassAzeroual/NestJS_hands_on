@@ -23,3 +23,13 @@ import { CreateCoffeeDto } from './create-coffee.dto';
 import { PartialType } from "@nestjs/mapped-types";
 
 export class UpdateCoffeeDto extends PartialType(CreateCoffeeDto) { }
+
+## global security input for malicious request data
+
+`ts`
+file main.ts
+`ts`
+app.useGlobalPipes(new ValidationPipe({
+whitelist: true,
+forbidNonWhitelisted: true
+}));
