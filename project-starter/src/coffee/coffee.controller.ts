@@ -18,7 +18,9 @@ export class CoffeeController {
     }
 
     @Patch(':id')
-    update(@Param('id') id, @Body() body: UpdateCoffeeDto) {
+    update(@Param('id') id: number, @Body() body: UpdateCoffeeDto) {
+        console.log(typeof id);
+
         return body
     }
 
