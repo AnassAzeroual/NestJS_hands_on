@@ -1,21 +1,41 @@
 ![image info](https://miro.medium.com/max/879/1*zjbQKzeIt3UM1ezHkDvHNw.png)
 
-# Install
+## Create Coffee Entity
 
-cmd : npm i @nestjs/typeorm typeorm mysql mariadb
+```ts
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-## Install Xampp for mysql
+@Entity() // create sql table name like the class name in lowercase
+export class Coffee {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-## App.Module.ts in imports
+  @Column()
+  name: string;
 
-TypeOrmModule.forRoot({
-type: 'mariadb',
-host: 'localhost',
-port: 3306,
-username: 'root',
-password: '',
-database: 'nestDB',
-autoLoadEntities: true,
-synchronize: true
+  @Column()
+  brand: string;
+
+  @Column("json", { nullable: true })
+  flavors: string[];
+}
+```
+
+## CoffeeModule Declare TypeOrmModule
+
+```ts
+@Module({
+  imports: [TypeOrmModule.forFeature([Coffee])],
+  controllers: [CoffeeController],
+  providers: [CoffeeService],
 })
-],
+export class CoffeeModule {}
+```
+
+## InjectRepository in CoffeeService
+
+```ts
+constructor(
+        @InjectRepository(Coffee) private coffeeRepo: Repository<Coffee>
+    ) { }
+```
