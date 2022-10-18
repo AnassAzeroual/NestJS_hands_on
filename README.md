@@ -1,35 +1,21 @@
-![image info](https://sethphat.com/wp-content/uploads/2020/04/063437b9ea.jpg)
+![image info](https://miro.medium.com/max/879/1*zjbQKzeIt3UM1ezHkDvHNw.png)
 
-# Main.ts
+# Install
 
-app.useGlobalPipes(new ValidationPipe());
+cmd : npm i @nestjs/typeorm typeorm mysql mariadb
 
-## install
+## Install Xampp for mysql
 
-cmd : npm i class-validator class-transformer
+## App.Module.ts in imports
 
-## install packages types
-
-cmd : npm i @nestjs/mapped-types
-
-## add DTO (data transfer object)
-
-cmd : nest g class dto/create-coffee.dto
-cmd : nest g class dto/update-coffee.dto
-
-## refacturing update coffee file (later)
-
-import { CreateCoffeeDto } from './create-coffee.dto';
-import { PartialType } from "@nestjs/mapped-types";
-
-export class UpdateCoffeeDto extends PartialType(CreateCoffeeDto) { }
-
-## global security input for malicious request data
-
-`ts`
-file main.ts
-`ts`
-app.useGlobalPipes(new ValidationPipe({
-whitelist: true,
-forbidNonWhitelisted: true
-}));
+TypeOrmModule.forRoot({
+type: 'mariadb',
+host: 'localhost',
+port: 3306,
+username: 'root',
+password: '',
+database: 'nestDB',
+autoLoadEntities: true,
+synchronize: true
+})
+],
