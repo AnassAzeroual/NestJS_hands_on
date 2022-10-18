@@ -12,6 +12,11 @@ export class CoffeeController {
         return this.srv.findAll();
     }
 
+    @Get(':id')
+    getById(@Param('id') id: number) {
+        return this.srv.findOneByID(id);
+    }
+
     @Post()
     create(@Body() body: CreateCoffeeDto) {
         return this.srv.create(body)
@@ -19,9 +24,7 @@ export class CoffeeController {
 
     @Patch(':id')
     update(@Param('id') id: number, @Body() body: UpdateCoffeeDto) {
-        console.log(typeof id);
-
-        return body
+        return this.srv.update(id, body)
     }
 
     @Delete(':id')

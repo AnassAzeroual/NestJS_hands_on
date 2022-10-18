@@ -18,6 +18,10 @@ export class CoffeeService {
         return this.coffeeData
     }
 
+    findOneByID(id: number) {
+        return this.coffeeData.find(c => c.id == id)
+    }
+
     findOne(id: string) {
         return this.coffeeData.find(c => c.id == Number(id))
     }
