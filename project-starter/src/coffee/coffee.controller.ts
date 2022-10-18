@@ -1,8 +1,7 @@
 import { UpdateCoffeeDto } from './../dto/update-coffee.dto';
 import { CreateCoffeeDto } from './../dto/create-coffee.dto';
-import { Coffee } from './../../entities/coffee.entitie';
 import { CoffeeService } from './coffee.service';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 
 @Controller('coffee')
 export class CoffeeController {
@@ -28,7 +27,7 @@ export class CoffeeController {
     }
 
     @Delete(':id')
-    delete(@Param('id') id) {
+    delete(@Param('id') id: number) {
         return this.srv.delete(id)
     }
 }

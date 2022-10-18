@@ -23,8 +23,8 @@ export class CoffeeService {
         return this.coffeeData.find(c => c.id == id)
     }
 
-    findOne(id: string) {
-        return this.coffeeData.find(c => c.id == Number(id))
+    findOne(id: number) {
+        return this.coffeeData.find(c => c.id == id)
     }
 
     create(createCoffee: CreateCoffeeDto) {
@@ -43,13 +43,13 @@ export class CoffeeService {
                 }
             }
         } else {
-            return new NotFoundException()
+            throw new NotFoundException()
         }
         return this.coffeeData
     }
 
     delete(id: number) {
-        this.coffeeData = this.coffeeData.filter(v => v.id !== Number(id))
+        this.coffeeData = this.coffeeData.filter(v => v.id !== id)
         return this.coffeeData
     }
 }
