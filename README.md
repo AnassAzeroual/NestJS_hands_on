@@ -21,6 +21,26 @@ export class Coffee {
 }
 ```
 
+## AppModule Declare TypeOrmModule
+
+```ts
+@Module({
+  imports: [TypeOrmModule.forRoot({
+      type: 'mariadb',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'nestDB',
+      autoLoadEntities: true,
+      synchronize: false
+    })],
+  controllers: [CoffeeController],
+  providers: [CoffeeService],
+})
+export class CoffeeModule {}
+```
+
 ## CoffeeModule Declare TypeOrmModule
 
 ```ts
