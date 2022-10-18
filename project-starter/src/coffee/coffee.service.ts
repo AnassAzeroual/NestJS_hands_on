@@ -2,6 +2,7 @@ import { CreateCoffeeDto } from './../dto/create-coffee.dto';
 import { Coffee } from './../../entities/coffee.entitie';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { NotFoundError } from 'rxjs';
+import { UpdateCoffeeDto } from 'src/dto/update-coffee.dto';
 
 @Injectable()
 export class CoffeeService {
@@ -31,7 +32,7 @@ export class CoffeeService {
         return this.coffeeData
     }
 
-    update(id: number, createCoffee: Partial<Coffee>) {
+    update(id: number, createCoffee: UpdateCoffeeDto) {
         let coffeeTemp = this.coffeeData.find(v => v.id == id)
         if (coffeeTemp) {
             for (const coffee of this.coffeeData) {
