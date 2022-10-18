@@ -1,55 +1,47 @@
 import { CreateCoffeeDto } from './../dto/create-coffee.dto';
-import { Coffee } from './../../entities/coffee.entitie';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { NotFoundError } from 'rxjs';
 import { UpdateCoffeeDto } from 'src/dto/update-coffee.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Coffee } from 'entities/coffee.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CoffeeService {
-    private coffeeData: CreateCoffeeDto[] = [
-        {
-            id: 1,
-            name: "Shipwreck Roast",
-            brand: "Buddy Brew",
-            flavors: ["vanilla", "chocolate"]
-        }
-    ];
+
+    constructor(
+        @InjectRepository(Coffee) private coffeeRepo: Repository<Coffee>
+    ) { }
 
     findAll() {
-        return this.coffeeData
+        return this.coffeeRepo.find()
     }
 
-    findOneByID(id: number) {
-        return this.coffeeData.find(c => c.id == id)
-    }
-
-    findOne(id: number) {
-        return this.coffeeData.find(c => c.id == id)
+    async findOneByID(id: number) {
+        const coffee = await this.coffeeRepo.findOne({ where: { id } })
+        if (!coffee) {
+            throw new NotFoundException(`Coffee ID #${id} not found`)
+        }
+        return coffee
     }
 
     create(createCoffee: CreateCoffeeDto) {
-        this.coffeeData.push(createCoffee);
-        return this.coffeeData
+        const coffee = this.coffeeRepo.create(createCoffee);
+        return this.coffeeRepo.save(coffee)
     }
 
-    update(id: number, createCoffee: UpdateCoffeeDto) {
-        let coffeeTemp = this.coffeeData.find(v => v.id == id)
-        if (coffeeTemp) {
-            for (const coffee of this.coffeeData) {
-                if (coffee.id == id) {
-                    coffee.flavors = createCoffee.flavors
-                    coffee.name = createCoffee.name
-                    coffee.brand = createCoffee.brand
-                }
-            }
-        } else {
-            throw new NotFoundException()
+    async update(id: number, createCoffee: UpdateCoffeeDto) {
+        let coffeeTemp = await this.coffeeRepo.preload({
+            id: +id,
+            ...createCoffee
+        })
+        if (!coffeeTemp) {
+            throw new NotFoundException(`Coffee ID #${id} not found`)
         }
-        return this.coffeeData
+        return this.coffeeRepo.save(coffeeTemp)
     }
 
-    delete(id: number) {
-        this.coffeeData = this.coffeeData.filter(v => v.id !== id)
-        return this.coffeeData
+    async delete(id: number) {
+        const coffeeTemp = await this.findOneByID(id)
+        return this.coffeeRepo.remove(coffeeTemp)
     }
 }

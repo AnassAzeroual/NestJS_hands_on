@@ -17,7 +17,8 @@ import { CoffeeModule } from './coffee/coffee.module';
       password: '',
       database: 'nestDB',
       autoLoadEntities: true,
-      synchronize: true
+      synchronize: false,
+      migrationsRun: true
     })
   ],
   controllers: [AppController],
