@@ -88,11 +88,11 @@ export class AuthController {
 }
 ```
 
-## add guard in controller
+## add pipes in controller
 ```ts
-@Get()
-    @UseGuards(AuthGuard())
-    get() {
-        return this.srv.findAll();
+@Post()
+    @UsePipes(new ValidationPipe({ whitelist: true, transform: true, forbidNonWhitelisted: false }))
+    create(@Body() body: CreateCoffeeDto) {
+        return this.srv.create(body)
     }
 ```
