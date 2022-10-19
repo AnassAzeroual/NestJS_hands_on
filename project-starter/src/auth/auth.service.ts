@@ -18,7 +18,7 @@ export class AuthService {
         if (check != 1) {
             throw new UnauthorizedException('Invalid Credentials!')
         }
-        const payload: jwtPayload = { login: body.login, password: body.password }
+        const payload: jwtPayload = { login: body.login }
         const accessToken = await this.srvJWT.sign(payload)
         return { accessToken }
     }

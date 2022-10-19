@@ -15,8 +15,8 @@ export class JwtStartegy extends PassportStrategy(Strategy) {
     }
 
     validate(payload: jwtPayload): Promise<Auth> {
-        const { login, password } = payload;
-        const user = this.repoAuth.findOne({ where: { login, password } })
+        const { login } = payload;
+        const user = this.repoAuth.findOne({ where: { login } })
 
         if (!user) throw new UnauthorizedException()
         return user
