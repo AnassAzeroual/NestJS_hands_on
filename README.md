@@ -87,3 +87,12 @@ export class AuthController {
     }
 }
 ```
+
+## add guard in controller
+```ts
+@Get()
+    @UseGuards(AuthGuard())
+    get() {
+        return this.srv.findAll();
+    }
+```
