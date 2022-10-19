@@ -1,24 +1,18 @@
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Flavor } from "./flavor.entity";
+import { Coffee } from './coffee.entity';
 
 @Entity() // create sql table name like the class name in lowercase
-export class Coffee {
+export class Flavor {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     name: string;
 
-    @Column()
-    brand: string;
-
     @JoinTable()
     @ManyToMany(
-        type => Flavor,
-        flavor => flavor.coffees,
-        {
-            cascade: true
-        }
+        type => Coffee,
+        coffee => coffee.flavors
     )
-    flavors: string[];
+    coffees: Coffee[];
 }

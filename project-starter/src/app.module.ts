@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeeModule } from './coffee/coffee.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,9 +18,9 @@ import { CoffeeModule } from './coffee/coffee.module';
       password: '',
       database: 'nestDB',
       autoLoadEntities: true,
-      synchronize: false,
-      migrationsRun: true
-    })
+      synchronize: false
+    }),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
